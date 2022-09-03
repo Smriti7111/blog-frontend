@@ -5,6 +5,7 @@ import CreateBlogLayout from './containers/CreateBlogLayout';
 import EditBlogLayout from './containers/EditBlogLayout';
 import SingleBlogLayout from './containers/SingleBlogLayout';
 import NotFoundLayout from './containers/NotFoundLayout';
+import DashboardLayout from './containers/DashboardLayout';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path='/blogs' element={<BlogsLayout />} />
           <Route path='/blogs/:slug' element={<SingleBlogLayout />} />
           <Route path='/blogs/new' element={<CreateBlogLayout />} />
+          <Route path='/blogs/dashboard' element={<DashboardLayout />}/>
           <Route path='/blogs/edit/:slug' element={<EditBlogLayout />} />
           <Route path='*' element={<NotFoundLayout />} />
         </Routes>
