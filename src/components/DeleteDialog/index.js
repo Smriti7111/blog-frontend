@@ -1,3 +1,4 @@
+import { Article } from '@mui/icons-material';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -6,14 +7,14 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { deleteBlog } from '../../data/service';
 
-const DeleteDialog = ({setOpen, open, slug}) => {
+const DeleteDialog = ({setOpen, open, article}) => {
 
     const handleClose = () => {
         setOpen(false);
     };
 
     const handleDelete = () => {
-        deleteBlog(slug);
+        deleteBlog(article.slug);
     }
 
     return (
@@ -24,13 +25,9 @@ const DeleteDialog = ({setOpen, open, slug}) => {
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
             >
-                <DialogTitle id="alert-dialog-title">
-                    {"Use Google's location service?"}
-                </DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        Let Google help apps determine location. This means sending anonymous
-                        location data to Google, even when no apps are running.
+                        Are you sure you want to delete <b>{article.title}</b> ?
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
