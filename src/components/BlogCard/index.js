@@ -14,7 +14,7 @@ const BlogCard = ({ article }) => {
                     <CardMedia
                         component="img"
                         height="140"
-                        image="/static/images/cards/contemplative-reptile.jpg"
+                        image="https://thumbs.dreamstime.com/b/blog-information-website-concept-workplace-background-text-view-above-127465079.jpg"
                         alt="green iguana"
                     />
                     <CardContent>
