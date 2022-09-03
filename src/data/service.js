@@ -19,6 +19,11 @@ export const deleteBlog = async (slug) => {
     }
 }
 
-export const updateBlog = (slug) => {
-
+export const updateBlog = async (userBlog, slug) => {
+    try {
+        const res = await axios.patch(`${API_BASE_URL}/api/articles/${slug}`, userBlog);
+        console.log(res);
+    } catch (err) {
+        console.log(err);
+    }
 }

@@ -33,7 +33,7 @@ const BlogRowList = ({ article }) => {
                 }} startIcon={<DeleteIcon />} />
                 <Button onClick={handleUpdate} startIcon={<EditIcon />} />
             </TableCell>
-            <DeleteDialog setOpen={setOpen} open={open} slug={article.slug} />
+            <DeleteDialog setOpen={setOpen} open={open} article={article} />
         </TableRow>
     )
 }
