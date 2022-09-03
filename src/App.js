@@ -17,7 +17,7 @@ function App() {
           <Route path='/blogs/:slug' element={<SingleBlogLayout />} />
           <Route path='/blogs/new' element={<CreateBlogLayout />} />
           <Route path='/dashboard' element={<DashboardLayout />}/>
-          <Route path='/blogs/edit/:slug' element={<EditBlogLayout />} />
+          <Route path='/blogs/edit/:slug' element={<CreateBlogLayout />} />
           <Route path='*' element={<NotFoundLayout />} />
         </Routes>
       </BrowserRouter>

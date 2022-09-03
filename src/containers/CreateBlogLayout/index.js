@@ -1,10 +1,23 @@
 import { Button, TextField } from "@mui/material";
 import { Box } from "@mui/system";
-import { useState } from "react";
-import { createBlog } from "../../data/service";
+import { useContext, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { ArticleDetailContext, ArticleDetailProvider } from "../../context/ArticleDetailContext";
+import { createBlog, updateBlog } from "../../data/service";
 
 const CreateBlogLayout = () => {
-    const [userBlog, setUserBlog] = useState({
+    const { slug } = useParams();
+    return (
+        <ArticleDetailProvider slug={slug}>
+            <CreateBlog slug={slug} />
+        </ArticleDetailProvider>
+    )
+}
+
+const CreateBlog = ({ slug }) => {
+    const { articleDetails, loading, error } = useContext(ArticleDetailContext);
+
+    const [userBlog, setUserBlog] = useState(articleDetails || {
         title: "",
         description: "",
         slug: "",
@@ -12,13 +25,23 @@ const CreateBlogLayout = () => {
         author: ""
     })
 
+    //loads data into the form if it is in edit mode
+    useEffect(() => {
+        if (!articleDetails) return;
+        setUserBlog(articleDetails);
+    }, [articleDetails])
+
     const handleChange = (e) => {
         setUserBlog({ ...userBlog, [e.target.name]: e.target.value })
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        createBlog(userBlog);
+        if (!slug) {
+            createBlog(userBlog);
+        } else {
+            updateBlog(userBlog, slug);
+        }
     }
 
     return (
@@ -72,7 +95,7 @@ const CreateBlogLayout = () => {
                 value={userBlog.author}
                 onChange={handleChange}
             />
-            <Button variant="outlined" onClick={handleSubmit} style={{ maxWidth: '200px' }}>Create a Blog</Button>
+            <Button variant="outlined" onClick={handleSubmit} style={{ maxWidth: '200px' }}>{!slug ? 'Create' : 'Update'}</Button>
         </Box>
     )
 }
