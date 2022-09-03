@@ -8,12 +8,12 @@ const HomeLayout = () => {
     const { articles, loading, error } = useContext(ArticleContext);
     return (
         <Box p={10} display="flex" flexWrap={"wrap"} gap={4} justifyContent={"center"}>
-            <DashboardButton/>
+            <DashboardButton />
             {loading && <h1>Loading...</h1>}
             {!loading && error && <h1>Some error occured!</h1>}
-            {!loading && !error && articles && articles.map((article) => {
-                return <BlogCard article={article}/>
-            }) }
+            {!loading && !error && articles && articles.map((article, index) => {
+                return <BlogCard key={index} article={article} />
+            })}
         </Box>
     )
 }
