@@ -1,24 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import HomeLayout from './containers/HomeLayout';
+import BlogsLayout from './containers/BlogsLayout';
+import CreateBlogLayout from './containers/CreateBlogLayout';
+import EditBlogLayout from './containers/EditBlogLayout';
+import SingleBlogLayout from './containers/SingleBlogLayout';
+import NotFoundLayout from './containers/NotFoundLayout';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<HomeLayout />} />
+          <Route path='/blogs' element={<BlogsLayout />} />
+          <Route path='/blogs/:slug' element={<SingleBlogLayout />} />
+          <Route path='/blogs/new' element={<CreateBlogLayout />} />
+          <Route path='/blogs/edit/:slug' element={<EditBlogLayout />} />
+          <Route path='*' element={<NotFoundLayout />} />
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 
