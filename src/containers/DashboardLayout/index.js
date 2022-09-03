@@ -118,8 +118,8 @@ const DashboardLayout = () => {
                     {(rowsPerPage > 0
                         ? articles.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                         : articles
-                    ).map((article) => (
-                        <BlogRowList article = {article}/>
+                    ).map((article, index) => (
+                        <BlogRowList key={index} article = {article}/>
                     ))}
 
                     {emptyRows > 0 && (

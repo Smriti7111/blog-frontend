@@ -21,7 +21,7 @@ export const useArticles = () => {
         })();
     }, []);
 
-    return { articles, loading, error };
+    return { articles, loading, error, setArticles };
 }
 
 //hook to get a single articles

@@ -3,18 +3,22 @@ import EditIcon from '@mui/icons-material/Edit';
 import { Button, TableRow, TableCell } from "@mui/material";
 import { useState } from 'react';
 import DeleteDialog from '../DeleteDialog';
+import { useNavigate } from 'react-router-dom';
 
 
-const handleUpdate = () => {
 
-}
 
 const BlogRowList = ({ article }) => {
     const [open, setOpen] = useState(false);
+    const navigate = useNavigate();
 
     const handleClickOpen = (slug) => {
         setOpen(true);
     };
+
+    const handleUpdate = (slug) => {
+        navigate(`/blogs/edit/${slug}`)
+    }
 
     return (
         <TableRow key={article.title}>
@@ -31,7 +35,7 @@ const BlogRowList = ({ article }) => {
                 <Button onClick={() => {
                     handleClickOpen(article.slug)
                 }} startIcon={<DeleteIcon />} />
-                <Button onClick={handleUpdate} startIcon={<EditIcon />} />
+                <Button onClick={() => handleUpdate(article.slug)} startIcon={<EditIcon />} />
             </TableCell>
             <DeleteDialog setOpen={setOpen} open={open} article={article} />
         </TableRow>
