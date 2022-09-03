@@ -92,7 +92,7 @@ const DashboardLayout = () => {
     const emptyRows =
         page > 0 ? Math.max(0, (1 + page) * rowsPerPage - articles.length) : 0;
 
-    const handleChangePage = (event, newPage) => {
+    const handleChangePage = (newPage) => {
         setPage(newPage);
     };
 
@@ -119,7 +119,7 @@ const DashboardLayout = () => {
                         ? articles.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                         : articles
                     ).map((article) => (
-                        <BlogRowList article = {article} />
+                        <BlogRowList article = {article}/>
                     ))}
 
                     {emptyRows > 0 && (

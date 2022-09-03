@@ -2,7 +2,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomeLayout from "./containers/HomeLayout";
 import BlogsLayout from "./containers/BlogsLayout";
 import CreateBlogLayout from "./containers/CreateBlogLayout";
-import EditBlogLayout from "./containers/EditBlogLayout";
 import SingleBlogLayout from "./containers/SingleBlogLayout";
 import NotFoundLayout from "./containers/NotFoundLayout";
 import DashboardLayout from "./containers/DashboardLayout";

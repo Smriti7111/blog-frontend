@@ -15,7 +15,7 @@ const CreateBlogLayout = () => {
 }
 
 const CreateBlog = ({ slug }) => {
-    const { articleDetails, loading, error } = useContext(ArticleDetailContext);
+    const { articleDetails } = useContext(ArticleDetailContext);
 
     const [userBlog, setUserBlog] = useState(articleDetails || {
         title: "",

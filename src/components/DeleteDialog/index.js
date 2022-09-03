@@ -6,7 +6,6 @@ import DialogContentText from '@mui/material/DialogContentText';
 import { deleteBlog } from '../../data/service';
 
 const DeleteDialog = ({setOpen, open, article}) => {
-
     const handleClose = () => {
         setOpen(false);
     };

@@ -12,7 +12,8 @@ export const createBlog = async (userBlog) => {
 
 export const deleteBlog = async (slug) => {
     try {
-        const res = axios.delete(`${API_BASE_URL}/api/articles/${slug}`)
+        const res = await axios.delete(`${API_BASE_URL}/api/articles/${slug}`)
+        //window.location.reload(false);
         console.log(res);
     } catch (err) {
         console.log(err);

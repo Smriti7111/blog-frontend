@@ -5,10 +5,10 @@ import { useArticles } from "../data/hooks";
 export const ArticleContext = createContext({});
 
 export const ArticleProvider = ({ children }) => {
-    const { articles, loading, error } = useArticles();
+    const { articles, loading, error, setArticles } = useArticles();
 
     return (
-        <ArticleContext.Provider value={{ articles, loading, error }}>
+        <ArticleContext.Provider value={{ articles, loading, error, setArticles }}>
             {children}
         </ArticleContext.Provider>
     )
