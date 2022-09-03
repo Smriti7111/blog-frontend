@@ -1,21 +1,16 @@
 import { useContext, useState } from "react";
 import PropTypes from 'prop-types';
 import { useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableFooter from '@mui/material/TableFooter';
-import TablePagination from '@mui/material/TablePagination';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import IconButton from '@mui/material/IconButton';
+import { tableCellClasses } from '@mui/material/TableCell';
 import FirstPageIcon from '@mui/icons-material/FirstPage';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
+import { styled } from '@mui/material/styles';
 import { ArticleContext } from '../../context/ArticleContext';
+import { Box, Paper, IconButton, TableContainer, Table, TableHead, TableBody, TableRow, TablePagination, TableFooter, TableCell } from "@mui/material";
+import BlogRowList from "../../components/BlogRowList";
+
 
 function TablePaginationActions(props) {
     const theme = useTheme();
@@ -83,6 +78,16 @@ const DashboardLayout = () => {
     const [rowsPerPage, setRowsPerPage] = useState(5);
     const { articles, loading, error } = useContext(ArticleContext);
 
+    const StyledTableCell = styled(TableCell)(({ theme }) => ({
+        [`&.${tableCellClasses.head}`]: {
+            backgroundColor: theme.palette.common.black,
+            color: theme.palette.common.white,
+        },
+        [`&.${tableCellClasses.body}`]: {
+            fontSize: 14,
+        },
+    }));
+
     // Avoid a layout jump when reaching the last page with empty rows.
     const emptyRows =
         page > 0 ? Math.max(0, (1 + page) * rowsPerPage - articles.length) : 0;
@@ -101,22 +106,20 @@ const DashboardLayout = () => {
             {loading && !error && <h1>Loading...</h1>}
             {error && <h1>Some error occured. Please try again!</h1>}
             {!loading && !error && <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
+                <TableHead>
+                    <TableRow>
+                        <StyledTableCell>Title</StyledTableCell>
+                        <StyledTableCell align="right">Category</StyledTableCell>
+                        <StyledTableCell align="right">Slug</StyledTableCell>
+                        <StyledTableCell align="right">Action</StyledTableCell>
+                    </TableRow>
+                </TableHead>
                 <TableBody>
                     {(rowsPerPage > 0
                         ? articles.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                         : articles
                     ).map((article) => (
-                        <TableRow key={article.title}>
-                            <TableCell component="th" scope="row">
-                                {article.title}
-                            </TableCell>
-                            <TableCell style={{ width: 160 }} align="right">
-                                {article.category}
-                            </TableCell>
-                            <TableCell style={{ width: 160 }} align="right">
-                                {article.slug}
-                            </TableCell>
-                        </TableRow>
+                        <BlogRowList article = {article} />
                     ))}
 
                     {emptyRows > 0 && (
