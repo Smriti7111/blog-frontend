@@ -4,9 +4,9 @@ import { API_BASE_URL } from "./constants";
 export const createBlog = async (userBlog) => {
     try {
         const res = await axios.post(`${API_BASE_URL}/api/articles`, userBlog);
-        console.log(res);
+        return res;
     } catch (err) {
-        console.log(err);
+       return err    
     }
 }
 
@@ -22,9 +22,9 @@ export const deleteBlog = async (slug) => {
 export const updateBlog = async (userBlog, slug) => {
     try {
         const res = await axios.patch(`${API_BASE_URL}/api/articles/${slug}`, userBlog);
-        console.log(res);
+        return res;
     } catch (err) {
-        console.log(err);
+        return err    
     }
 }
 

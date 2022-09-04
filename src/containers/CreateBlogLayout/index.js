@@ -1,7 +1,8 @@
 import { Button, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { ArticleContext } from "../../context/ArticleContext";
 import { ArticleDetailContext, ArticleDetailProvider } from "../../context/ArticleDetailContext";
 import { createBlog, updateBlog } from "../../data/service";
 
@@ -16,14 +17,19 @@ const CreateBlogLayout = () => {
 
 const CreateBlog = ({ slug }) => {
     const { articleDetails } = useContext(ArticleDetailContext);
+    const { articles, setArticles } = useContext(ArticleContext);
 
-    const [userBlog, setUserBlog] = useState(articleDetails || {
+    const initialState = {
         title: "",
         description: "",
         slug: "",
         category: "",
         author: ""
-    })
+    }
+
+    const [userBlog, setUserBlog] = useState(articleDetails || initialState)
+
+    const navigate = useNavigate();
 
     //loads data into the form if it is in edit mode
     useEffect(() => {
@@ -35,10 +41,18 @@ const CreateBlog = ({ slug }) => {
         setUserBlog({ ...userBlog, [e.target.name]: e.target.value })
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (!slug) {
-            createBlog(userBlog);
+            const { status } = await createBlog(userBlog);
+
+            if (status === 200) {
+                setArticles([...articles, userBlog]);
+                setUserBlog(initialState);
+                navigate('/');
+            } else {
+                console.log("Some error occured")
+            }
         } else {
             updateBlog(userBlog, slug);
         }
