@@ -6,7 +6,7 @@ export const createBlog = async (userBlog) => {
         const res = await axios.post(`${API_BASE_URL}/api/articles`, userBlog);
         return res;
     } catch (err) {
-       return err    
+        return err; 
     }
 }
 
@@ -15,7 +15,7 @@ export const deleteBlog = async (slug) => {
         const res = await axios.delete(`${API_BASE_URL}/api/articles/${slug}`)
         return res;
     } catch (err) {
-        return err
+        return err;
     }
 }
 
@@ -24,7 +24,7 @@ export const updateBlog = async (userBlog, slug) => {
         const res = await axios.patch(`${API_BASE_URL}/api/articles/${slug}`, userBlog);
         return res;
     } catch (err) {
-        return err    
+        return err;
     }
 }
 

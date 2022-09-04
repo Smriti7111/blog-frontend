@@ -2,6 +2,7 @@ import { Button, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { SnackBar } from "../../components/SnackBar";
 import { ArticleContext } from "../../context/ArticleContext";
 import { ArticleDetailContext, ArticleDetailProvider } from "../../context/ArticleDetailContext";
 import { createBlog, updateBlog } from "../../data/service";
@@ -28,6 +29,7 @@ const CreateBlog = ({ slug }) => {
     }
 
     const [userBlog, setUserBlog] = useState(articleDetails || initialState)
+    const [open, setOpen] = useState(false);
 
     const navigate = useNavigate();
 
@@ -41,25 +43,34 @@ const CreateBlog = ({ slug }) => {
         setUserBlog({ ...userBlog, [e.target.name]: e.target.value })
     }
 
-    const handleSubmit = async (e) => {
+    const handleCreateBlog = async () => {
+        const { status } = await createBlog(userBlog);
+        if (status === 200) {
+            setArticles([...articles, userBlog]);
+            setUserBlog(initialState);
+            navigate('/');
+        } else {
+            console.log("Some error occured");
+            setOpen(true);
+        }
+    }
+
+    const handleUpdateBlog = async () => {
+        const { status } = await updateBlog(userBlog, slug);
+        if (status === 200) {
+            setArticles([...(articles.filter((article) => article._id !== userBlog._id)), userBlog]);
+            navigate('/');
+        } else {
+            console.log("Some error occured");
+        }
+    }
+
+    const handleSubmit = (e) => {
         e.preventDefault();
         if (!slug) {
-            const { status } = await createBlog(userBlog);
-            if (status === 200) {
-                setArticles([...articles, userBlog]);
-                setUserBlog(initialState);
-                navigate('/');
-            } else {
-                console.log("Some error occured")
-            }
+            handleCreateBlog();
         } else {
-            const { status } = await updateBlog(userBlog, slug);
-            if (status === 200) {
-                setArticles([...(articles.filter((article) => article._id !== userBlog._id)), userBlog]);
-                navigate('/');
-            } else {
-                console.log("Some error occured")
-            }
+            handleUpdateBlog();
         }
     }
 
@@ -115,6 +126,7 @@ const CreateBlog = ({ slug }) => {
                 onChange={handleChange}
             />
             <Button variant="outlined" onClick={handleSubmit} style={{ maxWidth: '200px' }}>{!slug ? 'Create' : 'Update'}</Button>
+            <SnackBar setOpen={setOpen} open={open}/>
         </Box>
     )
 }
