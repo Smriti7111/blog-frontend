@@ -32,7 +32,7 @@ const BlogRowList = ({ article }) => {
                 {article.slug}
             </TableCell>
             <TableCell style={{ width: 160 }} align="right">
-                <Button onClick={() => {
+                <Button style={{ color: 'red' }} onClick={() => {
                     handleClickOpen(article.slug)
                 }} startIcon={<DeleteIcon />} />
                 <Button onClick={() => handleUpdate(article.slug)} startIcon={<EditIcon />} />
