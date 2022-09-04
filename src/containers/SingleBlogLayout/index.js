@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import { useContext } from "react";
-import BlogCard from "../../components/BlogCard";
+import BlogPage from "../../components/BlogPage";
 import { ArticleDetailContext, ArticleDetailProvider } from "../../context/ArticleDetailContext";
 import { useParams } from "react-router-dom";
 
@@ -18,10 +18,10 @@ const SingleBlog = () => {
     const { articleDetails, loading, error } = useContext(ArticleDetailContext);
 
     return (
-        <Box p={10}>
+        <Box>
             {loading && <h1>Loading...</h1>}
             {!loading && error && <h1>Some error occured!</h1>}
-            {!loading && !error && articleDetails && <BlogCard article={articleDetails}/>}
+            {!loading && !error && articleDetails && <BlogPage article={articleDetails}/>}
         </Box>
     )
 }
