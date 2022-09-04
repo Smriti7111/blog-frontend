@@ -62,6 +62,7 @@ const CreateBlog = ({ slug }) => {
             navigate('/');
         } else {
             console.log("Some error occured");
+            setOpen(true);
         }
     }
 
