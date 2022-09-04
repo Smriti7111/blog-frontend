@@ -10,6 +10,7 @@ import { styled } from '@mui/material/styles';
 import { ArticleContext } from '../../context/ArticleContext';
 import { Box, Paper, IconButton, TableContainer, Table, TableHead, TableBody, TableRow, TablePagination, TableFooter, TableCell } from "@mui/material";
 import BlogRowList from "../../components/BlogRowList";
+import CreateBlogButton from "../../components/CreateBlogButton";
 
 
 function TablePaginationActions(props) {
@@ -102,54 +103,57 @@ const DashboardLayout = () => {
     };
 
     return (
-        <TableContainer component={Paper} p={10}>
-            {loading && !error && <h1>Loading...</h1>}
-            {error && <h1>Some error occured. Please try again!</h1>}
-            {!loading && !error && <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
-                <TableHead>
-                    <TableRow>
-                        <StyledTableCell>Title</StyledTableCell>
-                        <StyledTableCell align="right">Category</StyledTableCell>
-                        <StyledTableCell align="right">Slug</StyledTableCell>
-                        <StyledTableCell align="right">Action</StyledTableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {(rowsPerPage > 0
-                        ? articles.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                        : articles
-                    ).map((article, index) => (
-                        <BlogRowList key={index} article = {article}/>
-                    ))}
-
-                    {emptyRows > 0 && (
-                        <TableRow style={{ height: 53 * emptyRows }}>
-                            <TableCell colSpan={6} />
+        <>
+            <CreateBlogButton />
+            <TableContainer component={Paper} p={10}>
+                {loading && !error && <h1>Loading...</h1>}
+                {error && <h1>Some error occured. Please try again!</h1>}
+                {!loading && !error && <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
+                    <TableHead>
+                        <TableRow>
+                            <StyledTableCell>Title</StyledTableCell>
+                            <StyledTableCell align="right">Category</StyledTableCell>
+                            <StyledTableCell align="right">Slug</StyledTableCell>
+                            <StyledTableCell align="right">Action</StyledTableCell>
                         </TableRow>
-                    )}
-                </TableBody>
-                <TableFooter>
-                    <TableRow>
-                        <TablePagination
-                            rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
-                            colSpan={3}
-                            count={articles.length}
-                            rowsPerPage={rowsPerPage}
-                            page={page}
-                            SelectProps={{
-                                inputProps: {
-                                    'aria-label': 'rows per page',
-                                },
-                                native: true,
-                            }}
-                            onPageChange={handleChangePage}
-                            onRowsPerPageChange={handleChangeRowsPerPage}
-                            ActionsComponent={TablePaginationActions}
-                        />
-                    </TableRow>
-                </TableFooter>
-            </Table>}
-        </TableContainer>
+                    </TableHead>
+                    <TableBody>
+                        {(rowsPerPage > 0
+                            ? articles.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                            : articles
+                        ).map((article, index) => (
+                            <BlogRowList key={index} article={article} />
+                        ))}
+
+                        {emptyRows > 0 && (
+                            <TableRow style={{ height: 53 * emptyRows }}>
+                                <TableCell colSpan={6} />
+                            </TableRow>
+                        )}
+                    </TableBody>
+                    <TableFooter>
+                        <TableRow>
+                            <TablePagination
+                                rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
+                                colSpan={3}
+                                count={articles.length}
+                                rowsPerPage={rowsPerPage}
+                                page={page}
+                                SelectProps={{
+                                    inputProps: {
+                                        'aria-label': 'rows per page',
+                                    },
+                                    native: true,
+                                }}
+                                onPageChange={handleChangePage}
+                                onRowsPerPageChange={handleChangeRowsPerPage}
+                                ActionsComponent={TablePaginationActions}
+                            />
+                        </TableRow>
+                    </TableFooter>
+                </Table>}
+            </TableContainer>
+        </>
     );
 }
 

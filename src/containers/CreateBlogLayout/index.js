@@ -1,4 +1,4 @@
-import { Button, TextField } from "@mui/material";
+import { Button, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -25,12 +25,12 @@ const CreateBlog = ({ slug }) => {
         description: "",
         slug: "",
         category: "",
-        author: ""
+        author: "",
+        publishDate: ""
     }
 
     const [userBlog, setUserBlog] = useState(articleDetails || initialState)
     const [open, setOpen] = useState(false);
-
     const navigate = useNavigate();
 
     //loads data into the form if it is in edit mode
@@ -43,35 +43,43 @@ const CreateBlog = ({ slug }) => {
         setUserBlog({ ...userBlog, [e.target.name]: e.target.value })
     }
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (!slug) {
+            setUserBlog({ ...userBlog, publishDate: Date.now() })
+        } else {
+            handleUpdateBlog();
+        }
+    }
+
+    useEffect(() => {
+        if (userBlog.publishDate !== "" && !slug) {
+            handleCreateBlog();
+        }
+    }, [userBlog])
+
     const handleCreateBlog = async () => {
-        const { status } = await createBlog(userBlog);
+        const { response, status } = await createBlog(userBlog);
         if (status === 200) {
             setArticles([...articles, userBlog]);
             setUserBlog(initialState);
             navigate('/');
         } else {
             console.log("Some error occured");
+            console.log(response.data);
             setOpen(true);
         }
     }
 
     const handleUpdateBlog = async () => {
         const { status } = await updateBlog(userBlog, slug);
+        console.log(status);
         if (status === 200) {
             setArticles([...(articles.filter((article) => article._id !== userBlog._id)), userBlog]);
             navigate('/');
         } else {
             console.log("Some error occured");
             setOpen(true);
-        }
-    }
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (!slug) {
-            handleCreateBlog();
-        } else {
-            handleUpdateBlog();
         }
     }
 
@@ -84,8 +92,11 @@ const CreateBlog = ({ slug }) => {
             flexDirection={"column"}
             justifyContent={"center"}
             gap={5}
-            p={10}
+            p={5}
         >
+            <Typography variant="h4">
+                {!slug ? 'Create a New Blog' : 'Update Blog'}
+            </Typography>
             <TextField
                 required
                 id="outlined-required"
@@ -126,8 +137,8 @@ const CreateBlog = ({ slug }) => {
                 value={userBlog.author}
                 onChange={handleChange}
             />
-            <Button variant="outlined" onClick={handleSubmit} style={{ maxWidth: '200px' }}>{!slug ? 'Create' : 'Update'}</Button>
-            <SnackBar setOpen={setOpen} open={open}/>
+            <Button variant="contained" onClick={handleSubmit} style={{ maxWidth: '200px' }}>{!slug ? 'Create' : 'Update'}</Button>
+            <SnackBar setOpen={setOpen} open={open} />
         </Box>
     )
 }
