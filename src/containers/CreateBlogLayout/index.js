@@ -45,7 +45,6 @@ const CreateBlog = ({ slug }) => {
         e.preventDefault();
         if (!slug) {
             const { status } = await createBlog(userBlog);
-
             if (status === 200) {
                 setArticles([...articles, userBlog]);
                 setUserBlog(initialState);
@@ -54,7 +53,13 @@ const CreateBlog = ({ slug }) => {
                 console.log("Some error occured")
             }
         } else {
-            updateBlog(userBlog, slug);
+            const { status } = await updateBlog(userBlog, slug);
+            if (status === 200) {
+                setArticles([...(articles.filter((article) => article._id !== userBlog._id)), userBlog]);
+                navigate('/');
+            } else {
+                console.log("Some error occured")
+            }
         }
     }
 
