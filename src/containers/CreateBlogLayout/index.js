@@ -2,7 +2,6 @@ import { Button, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { SnackBar } from "../../components/SnackBar";
 import { ArticleContext } from "../../context/ArticleContext";
 import {
   ArticleDetailContext,
@@ -70,6 +69,7 @@ const CreateBlog = ({ slug }) => {
 
   const handleUpdateBlog = async () => {
     const { response, status } = await updateBlog(userBlog, slug);
+    console.log(response);
     if (status === 200) {
       setArticles([
         ...articles.filter((article) => article._id !== userBlog._id),
@@ -170,7 +170,6 @@ const CreateBlog = ({ slug }) => {
       >
         {!slug ? "Create" : "Update"}
       </Button>
-      {/* <SnackBar setOpen={setOpen} open={open} /> */}
     </Box>
   );
 };
