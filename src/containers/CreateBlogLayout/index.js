@@ -27,14 +27,13 @@ const CreateBlog = ({ slug }) => {
     title: "",
     description: "",
     slug: "",
-    category: "",
-    author: "",
-    publishDate: "",
+    category: "General",
+    author: "Anonymous",
+    publishDate: Date.now(),
   };
 
   const [userBlog, setUserBlog] = useState(articleDetails || initialState);
   const [formErrors, setFormErrors] = useState({});
-  const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
   //loads data into the form if it is in edit mode
@@ -50,18 +49,12 @@ const CreateBlog = ({ slug }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!slug) {
-      setUserBlog({ ...userBlog, publishDate: Date.now() });
+      handleCreateBlog();
+      setFormErrors("");
     } else {
       handleUpdateBlog();
     }
   };
-
-  useEffect(() => {
-    if (userBlog.publishDate !== "" && !slug) {
-      handleCreateBlog();
-      setFormErrors("");
-    }
-  }, [userBlog]);
 
   const handleCreateBlog = async () => {
     const { response, status } = await createBlog(userBlog);
@@ -72,7 +65,6 @@ const CreateBlog = ({ slug }) => {
     } else {
       console.log("Some error occured");
       setFormErrors(response.data);
-      setOpen(true);
     }
   };
 
@@ -87,7 +79,6 @@ const CreateBlog = ({ slug }) => {
     } else {
       console.log("Some error occured");
       setFormErrors(response.data);
-      setOpen(true);
     }
   };
 
@@ -99,41 +90,65 @@ const CreateBlog = ({ slug }) => {
       display="flex"
       flexDirection={"column"}
       justifyContent={"center"}
-      gap={5}
+      gap={3}
       p={5}
     >
       <Typography variant="h4">
         {!slug ? "Create a New Blog" : "Edit Blog"}
       </Typography>
-      {formErrors.title && <Typography variant="p" p={0} style={{color: 'red'}}>{formErrors.title}</Typography>}
-      <TextField
-        required
-        id="outlined-required"
-        label="Title"
-        name="title"
-        value={userBlog.title}
-        onChange={handleChange}
-      />
-      {formErrors.description && <Typography variant="p" style={{color: 'red'}}>{formErrors.description}</Typography>}
-      <TextField
-        required
-        multiline
-        rows={4}
-        id="outlined-required"
-        label="Description"
-        name="description"
-        value={userBlog.description}
-        onChange={handleChange}
-      />
-      {formErrors.slug &&  <Typography variant="p" style={{color: 'red'}}>{formErrors.slug}</Typography>}
-      <TextField
-        required
-        id="outlined-required"
-        label="Slug"
-        name="slug"
-        value={userBlog.slug}
-        onChange={handleChange}
-      />
+      <Box>
+        <TextField
+          required
+          id="outlined-required"
+          label="Title"
+          name="title"
+          fullWidth
+          value={userBlog.title}
+          onChange={handleChange}
+          sx={{ paddingBottom: 1 }}
+        />
+        {formErrors.title && (
+          <Typography variant="p" p={0} style={{ color: "red" }}>
+            {formErrors.title}
+          </Typography>
+        )}
+      </Box>
+      <Box>
+        <TextField
+          required
+          multiline
+          rows={4}
+          fullWidth
+          id="outlined-required"
+          label="Description"
+          name="description"
+          value={userBlog.description}
+          onChange={handleChange}
+          sx={{ paddingBottom: 1 }}
+        />
+        {formErrors.description && (
+          <Typography variant="p" style={{ color: "red" }}>
+            {formErrors.description}
+          </Typography>
+        )}
+      </Box>
+      <Box>
+        <TextField
+          required
+          id="outlined-required"
+          label="Slug"
+          name="slug"
+          fullWidth
+          value={userBlog.slug}
+          onChange={handleChange}
+          sx={{ paddingBottom: 1 }}
+        />
+        {formErrors.slug && (
+          <Typography variant="p" style={{ color: "red" }}>
+            {formErrors.slug}
+          </Typography>
+        )}
+      </Box>
       <TextField
         id="outlined-required"
         label="Category"
@@ -155,7 +170,7 @@ const CreateBlog = ({ slug }) => {
       >
         {!slug ? "Create" : "Update"}
       </Button>
-      <SnackBar setOpen={setOpen} open={open} />
+      {/* <SnackBar setOpen={setOpen} open={open} /> */}
     </Box>
   );
 };
