@@ -14,11 +14,11 @@ const BlogPage = ({ article }) => {
         Published on: {formatDate(article.publishDate)}
       </Typography>
       <CardMedia
-          component="img"
-          height="500"
-          image="https://thumbs.dreamstime.com/b/blog-information-website-concept-workplace-background-text-view-above-127465079.jpg"
-          alt="green iguana"
-        />
+        component="img"
+        height="500"
+        image="https://thumbs.dreamstime.com/b/blog-information-website-concept-workplace-background-text-view-above-127465079.jpg"
+        alt="green iguana"
+      />
       <Box pt={4}>
         <Typography variant="body2" color="text.secondary" gutterBottom>
           {article.description}

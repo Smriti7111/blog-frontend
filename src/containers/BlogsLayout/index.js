@@ -1,5 +1,3 @@
-const BlogsLayout = () => {
-
-}
+const BlogsLayout = () => {};
 
 export default BlogsLayout;

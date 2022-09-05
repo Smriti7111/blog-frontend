@@ -35,7 +35,7 @@ const CreateBlog = ({ slug }) => {
   const [formErrors, setFormErrors] = useState({});
   const navigate = useNavigate();
 
-  //loads data into the form if it is in edit mode
+  // loads data into the form if it is in edit mode
   useEffect(() => {
     if (!articleDetails) return;
     setUserBlog(articleDetails);

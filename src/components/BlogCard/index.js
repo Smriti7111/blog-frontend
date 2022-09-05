@@ -14,7 +14,6 @@ const BlogCard = ({ article }) => {
     navigate(`/blogs/${slug}`);
   };
 
-
   return (
     <Card
       sx={{ maxWidth: 345 }}

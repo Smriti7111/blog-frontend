@@ -35,13 +35,13 @@ const Navbar = () => {
   };
 
   const navigateDashboard = () => {
-    navigate('/dashboard');
-    handleCloseUserMenu()
-  }
+    navigate("/dashboard");
+    handleCloseUserMenu();
+  };
 
   const navigateHome = () => {
-    navigate('/');
-  }
+    navigate("/");
+  };
 
   return (
     <AppBar position="static">
@@ -59,7 +59,7 @@ const Navbar = () => {
               letterSpacing: ".3rem",
               color: "inherit",
               textDecoration: "none",
-              cursor: "pointer"
+              cursor: "pointer",
             }}
             onClick={navigateHome}
           >
@@ -133,9 +133,9 @@ const Navbar = () => {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="User" src="#" />
-              </IconButton>
+            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+              <Avatar alt="User" src="#" />
+            </IconButton>
             <Menu
               sx={{ mt: "45px" }}
               id="menu-appbar"
@@ -152,9 +152,9 @@ const Navbar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-                <MenuItem onClick={navigateDashboard}>
-                  <Typography textAlign="center">Dashboard</Typography>
-                </MenuItem>
+              <MenuItem onClick={navigateDashboard}>
+                <Typography textAlign="center">Dashboard</Typography>
+              </MenuItem>
             </Menu>
           </Box>
         </Toolbar>

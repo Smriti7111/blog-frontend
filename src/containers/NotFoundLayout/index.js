@@ -1,5 +1,3 @@
-const NotFoundLayout = () => {
-
-}
+const NotFoundLayout = () => {};
 
 export default NotFoundLayout;
