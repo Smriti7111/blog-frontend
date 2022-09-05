@@ -1,4 +1,5 @@
 # Project Name & Pitch
+Name : PersonalBlog
 An application that allows user to add, edit and delete articles, built using React,ContextAPI,Material UI
 
 # Project Status
